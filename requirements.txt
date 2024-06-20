@@ -6,4 +6,4 @@ django-filter~=24.2
 python-nginx
 gunicorn
 python-dotenv
-nginx
+
