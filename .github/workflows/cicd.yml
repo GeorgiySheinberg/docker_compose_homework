@@ -4,7 +4,7 @@ name:
 on:
   push:
     branches:
-      -main
+      - main
 
 jobs:
   tests:
@@ -27,7 +27,7 @@ jobs:
           POSTGRES_USER: ${{env.DB_USER}}
           POSTGRES_PASSWORD: ${{env.DB_PASSWORD}}
         ports:
-          - 5432: 5432
+          - 5432:5432
         options:
           --health-cmd pg_isready
           --health-interval 5s
