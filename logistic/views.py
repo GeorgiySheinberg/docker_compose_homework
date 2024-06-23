@@ -25,8 +25,3 @@ class StockViewSet(ModelViewSet):
     filterset_fields = ["positions", "products"]
     search_fields = ['id', 'address']
     pagination_class = LimitOffsetPagination
-
-"""
-Пагинация через указание параметров в settings.py не получается.
-
-"""

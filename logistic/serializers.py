@@ -47,7 +47,8 @@ class StockSerializer(serializers.ModelSerializer):
 
         for position in positions:
 
-            StockProduct.objects.filter(product=position.get('product')).update(
+            StockProduct.objects.filter(
+                product=position.get('product')).update(
                 quantity=position.get("quantity"),
                 price=position.get("price")
             )
