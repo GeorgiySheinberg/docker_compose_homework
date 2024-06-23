@@ -66,5 +66,5 @@ jobs:
         with:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USER }}
-          key: ${{ secrets.SSH_KEYg }}
+          key: ${{ secrets.SSH_KEY }}
           script: expect /root/ci_cd/deploy.exp
