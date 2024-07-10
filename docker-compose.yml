@@ -1,0 +1,26 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:latest
+    container_name: postgres
+    environment:
+      POSTGRES_USER: my_user
+      POSTGRES_PASSWORD: user
+      POSTGRES_DB: dockercompose_db
+    ports:
+      - "5433:5432"
+#  my_application:
+#    build:
+#      context: .
+#    ports:
+#      - "8001:8000"
+#    depends_on:
+#      - postgres
+#    environment:
+#      DEBUG: "True"
+#      DB_NAME: "dockercompose_db"
+#      DB_USER: "my_user"
+#      DB_PASSWORD: "user"
+#      DB_HOST: "postgres"
+#      DB_PORT: 5432
