@@ -3,7 +3,7 @@ djangorestframework~=3.15.1
 psycopg2-binary
 flake8
 django-filter~=24.2
-python-nginx
+
 gunicorn
-python-dotenv
+
 

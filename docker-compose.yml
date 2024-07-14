@@ -1,26 +1,43 @@
-version: '3.8'
-
 services:
-  postgres:
-    image: postgres:latest
-    container_name: postgres
-    environment:
-      POSTGRES_USER: my_user
-      POSTGRES_PASSWORD: user
-      POSTGRES_DB: dockercompose_db
+  web:
+    # Берем Dockerfile из каталога app
+    build: .
+    # Запускаем сервер gunicorn
+    command: gunicorn stocks_products.wsgi:application --bind 0.0.0.0:8000
+    # Открываем порт 8000 внутри и снаружи
+    expose:
+      - 8000
+
+    volumes:
+      - static_volume:/home/app/web/static
+      - media_volume:/home/app/web/media
+
+    env_file:
+      - ./.env.dev
+    # Дожидаемся запуска контейнера db
+    depends_on:
+      - db
+  db:
+    # Образ и версия базы, которую мы будем использовать
+    image: postgres:16.3-alpine3.20
+    # Внешний том(volume) и место где он будет подключен внутри контейнера
+    volumes:
+      - postgres_volume:/var/lib/postgresql/data/
+    env_file:
+      - ./.env.dev
+
+  nginx:
+    build: ./nginx
+    # Подключаем статические и медиа файлы
+    volumes:
+      - static_volume:/home/app/web/static
+      - media_volume:/home/app/web/media
     ports:
-      - "5433:5432"
-#  my_application:
-#    build:
-#      context: .
-#    ports:
-#      - "8001:8000"
-#    depends_on:
-#      - postgres
-#    environment:
-#      DEBUG: "True"
-#      DB_NAME: "dockercompose_db"
-#      DB_USER: "my_user"
-#      DB_PASSWORD: "user"
-#      DB_HOST: "postgres"
-#      DB_PORT: 5432
+      - 80:80
+    depends_on:
+      - web
+
+volumes:
+  postgres_volume:
+  static_volume:
+  media_volume:
